@@ -24,12 +24,18 @@ void SnakeGame::BeginPlay()
 
 void SnakeGame::Tick()
 {
-	Square::Get().Draw({2.0f, 2.0f }, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f});
+	Square::Get().Draw({5.0f, 5.0f }, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f});
 	Square::Get().Draw({16.0f, 16.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f});
 }
 
 void SnakeGame::OnInput(int32_t Key, int32_t Scancode, int32_t Action, int32_t Mods)
 {
 	if (Action == GLFW_PRESS)
-		std::cout << "key pressed\n";
+	{
+		if (Key == GLFW_KEY_A)
+			std::cout << "A pressed \n";
+
+		else if(Key == GLFW_KEY_B)
+			std::cout << "B pressed \n";
+	}
 }
