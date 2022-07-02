@@ -19,12 +19,21 @@ void SnakeGame::Start()
 
 void SnakeGame::BeginPlay()
 {
+	// here we change coordinate system of square
+	// which means that left bottom corner of screen is x = 0.0f, y = 0.0f
+	// and top right corner of screen is x = 20.0f, y = 20.0f
+	// you can change this to anything you want
 	Square::Get().ChangeCoordinateSystem({ 0.0f, 0.0f }, { 20.0f, 20.0f });
 }
 
 void SnakeGame::Tick()
 {
+	//draw needs to be called every frame where you want square to be rendered
+	//arguments to draw are { position, scale, color }
+	//color is 4d vector in RGBA format so x = red, y = green, z = blue, a = alpha
 	Square::Get().Draw({5.0f, 5.0f }, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f});
+
+
 	Square::Get().Draw({16.0f, 16.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f});
 }
 
