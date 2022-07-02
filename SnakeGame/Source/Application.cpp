@@ -43,16 +43,7 @@ void Application::init()
     setup_callbacks();
 
     if (on_window_open_callback)
-        on_window_open_callback->call(m_window);
-}
-
-void Application::on_window_resize(GLFWwindow* window, int32_t new_width, int32_t new_height)
-{
-    m_width = new_width;
-    m_height = new_height;
-
-    if (m_window_resize_callback)
-        m_window_resize_callback->call(new_width, new_height);
+        on_window_open_callback->call();
 }
 
 void Application::on_key_event(int32_t key, int32_t scancode, int32_t action, int32_t mods)
@@ -83,19 +74,13 @@ void Application::setup_callbacks() const noexcept
             static_cast<Application*>(glfwGetWindowUserPointer(window))->on_key_event(key, scancode, action, mods);
     };
     glfwSetKeyCallback(get_window(), on_key);
-
-
-    auto on_resize = [](GLFWwindow* window, int32_t new_width, int32_t new_height)
-    {
-        static_cast<Application*>(glfwGetWindowUserPointer(window))->on_window_resize(window, new_width, new_height);
-    };
-    glfwSetWindowSizeCallback(get_window(), on_resize);
 }
 
 void Application::render_loop()
 {
     while (!glfwWindowShouldClose(m_window))
     {
+        glfwSetWindowSize(m_window, m_width, m_height);
         glViewport(0, 0, m_width, m_height);
         glfwPollEvents();
         glDepthMask(GL_TRUE);

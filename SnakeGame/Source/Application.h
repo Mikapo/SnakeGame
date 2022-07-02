@@ -47,9 +47,9 @@ public:
     void start();
 
     template<typename T>
-    void set_on_window_open_callback(T* obj, void(T::* f)(GLFWwindow* window))
+    void set_on_window_open_callback(T* obj, void(T::* f)())
     {
-        m_render_callback = std::make_unique<Application_delegate_obj<T>>(obj, f);
+        on_window_open_callback = std::make_unique<Application_delegate_obj<T>>(obj, f);
     }
 
     template<typename T>
@@ -77,15 +77,8 @@ public:
         m_window_resize_callback = std::make_unique<Application_delegate_obj<T ,int32_t, int32_t>>(obj, f);
     }
 
-    template<typename T, typename... argtypes>
-    void on_window_open(T* obj, void(T::* f)(argtypes...))
-    {
-        on_window_open_callback = std::make_unique<Application_delegate_obj<T, GLFWwindow*>>(obj, f);
-    }
-
     inline GLFWwindow* get_window() const noexcept { return m_window; }
     void get_window_dimensions(int32_t& out_width, int32_t& out_height) const noexcept;
-    void on_window_resize(GLFWwindow* window, int32_t new_width, int32_t new_height);
     void on_key_event(int32_t key, int32_t scancode, int32_t action, int32_t mods);
     void set_window_dimensions(int32_t width, int32_t height) noexcept;
     void set_window_title(std::string_view name);
@@ -101,7 +94,7 @@ private:
     GLFWwindow* m_window = nullptr;
     bool m_has_started = false;
     glm::vec4 m_background_color = { 0.0f, 0.0f, 0.0f, 0.0f };
-    std::unique_ptr<Application_delegate<GLFWwindow*>> on_window_open_callback;
+    std::unique_ptr<Application_delegate<>> on_window_open_callback;
     std::unique_ptr<Application_delegate<>> m_render_callback;
     std::unique_ptr<Application_delegate<>> m_cleanup_callback;
     std::unique_ptr<Application_delegate<int32_t, int32_t>> m_window_resize_callback;

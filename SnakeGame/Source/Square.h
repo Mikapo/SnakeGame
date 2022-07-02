@@ -7,15 +7,16 @@
 class Square
 {
 public:
-	Square() = delete;
-
-	static void Draw(glm::vec2 Position, float Scale = 1);
+	static Square& Get();
+	void ChangeCoordinateSystem(glm::vec2 Min, glm::vec2 Max);
+	void Draw(glm::vec2 Position, float Scale = 1, glm::vec4 Color = {0.9f, 0.9f, 0.9f, 1.0f});
 
 private:
-	static void Initialize();
+	Square();
+	~Square() = default;
 
-	static bool HasBeenInitialized;
-	static std::unique_ptr<Buffers> SquareBuffers;
-	static std::unique_ptr<Shader> ShaderPtr;
+	 glm::mat4 Projection = glm::mat4(1);
+	 std::unique_ptr<Buffers> SquareBuffers = nullptr;
+	 std::unique_ptr<Shader> ShaderPtr = nullptr;
 };
 
