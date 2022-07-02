@@ -2,7 +2,7 @@
 #include "Square.h"
 #include <iostream>
 
-void SnakeGame::Start()
+SnakeGame::SnakeGame()
 {
 	Window.set_window_dimensions(1000, 1000);
 	Window.set_window_title("SnakeGame");
@@ -10,7 +10,10 @@ void SnakeGame::Start()
 	Window.set_on_key_event_callback(this, &SnakeGame::OnInput);
 	Window.set_render_callback(this, &SnakeGame::Tick);
 	Window.set_on_window_open_callback(this, &SnakeGame::BeginPlay);
+}
 
+void SnakeGame::Start()
+{
 	Window.start();
 }
 

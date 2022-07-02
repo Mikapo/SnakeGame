@@ -5,6 +5,8 @@
 class SnakeGame
 {
 public:
+	SnakeGame();
+
 	void Start();
 
 private:
